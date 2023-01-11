@@ -16,8 +16,8 @@ public:
     bool operator > (float );
     int frequence (float);
     void supprimer(float);
-    tableau_tri operator + (int);
+    tableau_tri operator + (float);
     tableau_tri operator + (const tableau_tri &);
     tableau_tri operator *(float);
-    friend tableau_tri operator * (float ,const tableau_tri&);
+    friend tableau_tri operator * (float ,tableau_tri&);
 };

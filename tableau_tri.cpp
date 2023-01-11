@@ -36,9 +36,7 @@ tableau_tri & tableau_tri::operator = (const tableau_tri & T){
 }
 //question 4
 istream& operator >>(istream & in, tableau_tri & T){
-	cin>>T.taille;
 	cin>>T.nbelts;
-	T.tab=new float(T.taille);
 	for(int i=0 ; i<T.nbelts ;i++)
 	cin>>T.tab[i];
 	return in;
@@ -47,7 +45,7 @@ ostream& operator <<(ostream & os, const tableau_tri & T){
 	cout<<"la taille est : "<<T.taille<<endl;
     cout<<"la nombre d'elements est : "<<T.nbelts<<endl;
 	for(int i=0 ; i<T.nbelts;i++)
-        cout<<"la case num "<<i<<" est : "<<T.tab[i];
+        cout<<"la case num "<<i+1<<" est : "<<T.tab[i]<<endl;
      cout<<endl;
 	return os; 
 }
@@ -70,17 +68,19 @@ int tableau_tri::frequence(float T) {
 }
 //question 7
 void tableau_tri::supprimer(float T){
-	int n=0;
+	int n=0,j=0;
 	for(int i=0;i<nbelts;i++){
 		if(tab[i]!=T){
 			tab[n]=tab[i];
 			n++;
 		}
+      else j++;
 	}
-	nbelts-=n;
+	nbelts-=j;
 }
 //question 8
-tableau_tri tableau_tri::operator +(int T){
+tableau_tri tableau_tri::operator +(float T){
+	cout<<"ED"<<endl;
 	if(nbelts==taille){ // pour ajouter une autre case memoire de type float pour le nouveau element 
 		taille++;
 		 float tabCopie[taille];
@@ -93,29 +93,29 @@ tableau_tri tableau_tri::operator +(int T){
 	}
 	//l'ajout du l'element
      nbelts++;
-	 int n=taille;
+	 int n=nbelts;
 	 for(int i=0; i<nbelts-1 && n==nbelts;i++){
-	 	  if(T<=tab[i] && T>=tab[i+1]){
-	 	  	     n=i+1;	  	
-		   }
-		   if(n==i+1){
-		   	      for(int j=nbelts;j>n;j++){
-		   	      	       tab[j-1]=tab[j-2]; 
-					 }
-			  tab[n]=T;
+	 	  if(T<tab[i]){
+	 	  	     n=i;	  	
+		   	      for(int j=nbelts-1;j>=n;j--){
+		   	      	       tab[j]=tab[j-1]; 
+					 } 
 		   }
 	 }
+	 tab[n-1]=T;
 	 return *this;
 }
 //2eme +
 tableau_tri tableau_tri::operator +(const tableau_tri & T){
+		cout<<"EDw"<<endl;
 	  tableau_tri T1(taille+T.taille);
 	  T1.nbelts=nbelts;
 	  for(int i=0;i<nbelts;i++){
 	  	      T1.tab[i]=tab[i];
 	  }
-	  for(int i=nbelts;i<T.nbelts;i++){
-	  	      T1.tab[i]>T.tab[i-nbelts];
+	  for(int i=nbelts;i<T.nbelts+nbelts;i++){
+		       cout <<"rr";
+	  	      T1+T.tab[i-nbelts];
 	  }
 	return T1;  
 }
@@ -126,6 +126,6 @@ tableau_tri tableau_tri::operator *(float x){
 	}
 	return *this;
 }
-tableau_tri operator *(float x,const tableau_tri& T){
-	return x*T;
+tableau_tri operator *(float x,tableau_tri& T){
+	return T*x;
 }

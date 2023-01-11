@@ -80,7 +80,6 @@ void tableau_tri::supprimer(float T){
 }
 //question 8
 tableau_tri tableau_tri::operator +(float T){
-	cout<<"ED"<<endl;
 	if(nbelts==taille){ // pour ajouter une autre case memoire de type float pour le nouveau element 
 		taille++;
 		 float tabCopie[taille];
@@ -107,7 +106,6 @@ tableau_tri tableau_tri::operator +(float T){
 }
 //2eme +
 tableau_tri tableau_tri::operator +(const tableau_tri & T){
-		cout<<"EDw"<<endl;
 	  tableau_tri T1(taille+T.taille);
 	  T1.nbelts=nbelts;
 	  for(int i=0;i<nbelts;i++){
